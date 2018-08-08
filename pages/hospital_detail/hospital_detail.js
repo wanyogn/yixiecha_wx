@@ -1,5 +1,6 @@
 // pages/product_detail/product_detail.js
 var util = require('../../utils/util.js')
+var handlerLogin = require('../../utils/handlerLogin.js') 
 Page({
 
   /**
@@ -46,6 +47,9 @@ Page({
         });
       }
     });
+  },
+  onReady: function () {
+    handlerLogin.ifAuthen();
   },
   inputChange: function (e) {
     //wx.setStorageSync('keyword', e.detail.value.replace(/\s+/g, ''));

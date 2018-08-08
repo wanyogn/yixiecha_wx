@@ -180,9 +180,12 @@ function transferDate(obj){
 }
 /*截取字符串*/
 function getText(text, size) {
-  if (text.length > size) {
-    text = text.substring(0, size) + "...";
+  if(text != undefined){
+    if (text.length > size) {
+      text = text.substring(0, size) + "...";
+    }
   }
+  
   return text;
 }
 /*时间戳转换为正常时间 */

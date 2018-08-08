@@ -1,5 +1,6 @@
 // pages/tenderbid_list/tenderbid_list.js
 var util = require('../../utils/util.js')
+var handlerLogin = require('../../utils/handlerLogin.js') 
 Page({
 
   /**
@@ -17,6 +18,9 @@ Page({
   onLoad: function (options) {
     this.data.keyword = options.keyword;
     this.fetchProduct();
+  },
+  onReady: function () {
+    handlerLogin.ifAuthen();
   },
   //填充页面
   fetchProduct: function () {

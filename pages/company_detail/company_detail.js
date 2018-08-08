@@ -1,5 +1,6 @@
 // pages/company_detail/company_detail.js
 var util = require('../../utils/util.js')
+var handlerLogin = require('../../utils/handlerLogin.js') 
 Page({
 
   /**
@@ -199,6 +200,9 @@ Page({
     })
 
 
+  },
+  onReady: function () {
+    handlerLogin.ifAuthen();
   },
   //器械生产切换
   SCChange:function(e){

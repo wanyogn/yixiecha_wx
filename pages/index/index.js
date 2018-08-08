@@ -1,4 +1,4 @@
-
+var handlerLogin = require('../../utils/handlerLogin.js')  
 const app = getApp();
 
 Page({
@@ -12,6 +12,10 @@ Page({
   },
   onLoad: function () {
     wx.setStorageSync('classify', 'pro');
+    
+  },
+  onReady:function(){
+    handlerLogin.ifAuthen();
   },
   inputChange: function (e) {
     var value = e.detail.value;

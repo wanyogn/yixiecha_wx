@@ -1,5 +1,6 @@
 // pages/search_com/search_com.js
 var util = require('../../utils/util.js')
+var handlerLogin = require('../../utils/handlerLogin.js') 
 Page({
 
   /**
@@ -53,7 +54,9 @@ Page({
     this.data.ifWrite = true;//需要添加记录
     this.contentHosActive();
   },
-
+  onShow: function () {
+    handlerLogin.ifAuthen();
+  },
   onReady: function () {
     var that = this;
     wx.getSystemInfo({

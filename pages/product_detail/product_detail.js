@@ -1,5 +1,6 @@
 // pages/product_detail/product_detail.js
 var util = require('../../utils/util.js')  
+var handlerLogin = require('../../utils/handlerLogin.js') 
 Page({
 
   /**
@@ -17,7 +18,9 @@ Page({
     productTenderbids: '',
     picExist:0
   },
-
+  onReady: function () {
+    handlerLogin.ifAuthen();
+  },
   /**
    * 生命周期函数--监听页面加载
    */
@@ -37,17 +40,44 @@ Page({
       },
       success: function (res) {
         var data = res.data.datas[0]; that.data.keyword = res.data.datas[0].product_name_ch; that.setData(that.data);
-        res.data.datas[0].src_loc = util.getMain_class(data.src_loc);
-        res.data.datas[0].main_class = util.getSrc_loc(data.main_class);
+        //res.data.datas[0].src_loc = util.getMain_class(data.src_loc);
+        //res.data.datas[0].main_class = util.getSrc_loc(data.main_class);
         res.data.datas[0].approval_date = data.approval_date.substring(0, 10);
         res.data.datas[0].expiry_date = data.expiry_date.substring(0, 10);
         res.data.datas[0].class_code = util.getClass_code(data.class_code);
         var maker_name = res.data.datas[0].maker_name_ch;
         if (maker_name == '') {
-          maker_name = res.data.datas[0].agent;;
+          maker_name = res.data.datas[0].agent;
         }
         res.data.datas[0].maker_name = maker_name;
         res.data.datas[0].maker_name_ch = util.getText(maker_name, 20);
+
+        if (res.data.datas[0].approval_complete_mark == 0){
+          res.data.datas[0].approval_date = data.approval_date.substring(0, 10);
+        } else if (res.data.datas[0].approval_complete_mark == 1){
+          res.data.datas[0].approval_date = data.approval_date.substring(0, 4);
+        }else{
+          res.data.datas[0].approval_date = data.approval_date.substring(0, 7);
+        }
+
+        if (res.data.datas[0].expiry_complete_mark == 0) {
+          res.data.datas[0].expiry_date = data.expiry_date.substring(0, 10);
+        } else if (res.data.datas[0].expiry_complete_mark == 1){
+          res.data.datas[0].expiry_date = data.expiry_date.substring(0, 4);
+        }else{
+          res.data.datas[0].expiry_date = data.expiry_date.substring(0, 7);
+        }
+
+        if (res.data.datas[0].vacancy_mark == 0){
+        } else if (res.data.datas[0].vacancy_mark == 1){
+          res.data.datas[0].approval_date = "";
+        } else if (res.data.datas[0].vacancy_mark == 2){
+          res.data.datas[0].expiry_date = "";
+        }else{
+          res.data.datas[0].approval_date = "";
+          res.data.datas[0].expiry_date = "";
+
+        }
 
         if (res.data.datas[0].picture_addr != undefined) {
           res.data.datas[0].picture_addr = "https://www.yixiecha.cn/yixiecha/upload/" + res.data.datas[0].picture_addr;
@@ -96,7 +126,7 @@ Page({
           },
           success: function (res) {
             for (var index in res.data.datas) {
-              res.data.datas[index].web_title = util.getText(res.data.datas[index].web_title,20);
+              res.data.datas[index].title = util.getText(res.data.datas[index].title,20);
             }
            // res.datas[index].maker_name_ch = util.getText(data.datas[index].maker_name_ch, 13);
             that.data.productTenderbids = res.data.datas;

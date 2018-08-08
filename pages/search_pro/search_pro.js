@@ -1,4 +1,5 @@
-var util = require('../../utils/util.js')  
+var util = require('../../utils/util.js')
+var handlerLogin = require('../../utils/handlerLogin.js') 
 const app = getApp();
 Page({
   data: {
@@ -44,6 +45,9 @@ Page({
     this.data.isSearch = false;//筛选按钮显示
     this.data.ifWrite = true;//需要添加记录
     this.contentProductActive();
+  },
+  onReady: function () {
+    handlerLogin.ifAuthen();
   },
   contentProductActive:function(){
     let src_loc = this.data.src_loc;

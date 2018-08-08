@@ -5,37 +5,13 @@ Page({
     canIUse: wx.canIUse('button.open-type.getUserInfo')
   },
   onLoad: function () {
-    /*var that = this;
-    // 查看是否授权
-    wx.getSetting({
-      success: function (res) {
-        if (res.authSetting['scope.userInfo']) {//已经授权
-          that.data.eye = true;
-          that.setData(that.data);
-          wx.getUserInfo({
-            success: function (res) {
-              app.globalData.userInfo = res.userInfo;
-            }
-          })
-          var pages = getCurrentPages();
-          var beforePage = pages[pages.length - 2]
-          wx.navigateBack({
-            success: function () {
-              beforePage.onLoad(); // 执行前一个页面的onLoad方法
-            }
-          });
-        }else{//未授权
-          that.data.eye = false;
-          that.setData(that.data);
-        }
-      }
-    })*/
+    var that = this;
   },
   onShow: function (options) {
     
     //this.getUserInfoFun()
   },
-  /*login:function(){
+  login:function(){
     wx.login({
       success: res => {
         // 发送 res.code 到后台换取 openId, sessionKey, unionId
@@ -50,6 +26,7 @@ Page({
             success: function (res) {
               app.globalData.openid = res.data.openid;
               wx.setStorageSync("openid", res.data.openid);
+              console.log(res);
             },
             fail: function (e) {
               console.log(e);
@@ -66,7 +43,7 @@ Page({
       }
     })
     // 获取用户信息
-  },  */
+  },  
   bindGetUserInfo: function (e) {
     if (e.detail.userInfo) {//用户按了允许授权按钮
       app.globalData.userInfo = e.detail.userInfo;
@@ -79,14 +56,14 @@ Page({
           'content-type': 'application/x-www-form-urlencoded'
         },
         success: function (res) {
-          console.log(res);
-          var pages = getCurrentPages();console.log(pages);
+          var pages = getCurrentPages();
           var beforePage = pages[pages.length - 1]
           wx.navigateBack({
             success: function () {
               beforePage.onLoad(); // 执行前一个页面的onLoad方法
             }
           });
+          wx.setStorageSync("openid", app.globalData.openid);
         },
         fail: function (e) {
           console.log(e);

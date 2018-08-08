@@ -1,4 +1,5 @@
 var util = require('../../utils/util.js')  
+var handlerLogin = require('../../utils/handlerLogin.js') 
 Page({
 
   /**
@@ -12,7 +13,9 @@ Page({
     firstDatas:[],
     secondData:[]
   },
-
+  onReady: function () {
+    handlerLogin.ifAuthen();
+  },
   /**
    * 生命周期函数--监听页面加载
    */

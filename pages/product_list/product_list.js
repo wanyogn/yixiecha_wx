@@ -1,5 +1,6 @@
 // pages/product_list/product_list.js
 var util = require('../../utils/util.js')
+var handlerLogin = require('../../utils/handlerLogin.js') 
 Page({
   /**
    * 页面的初始数据
@@ -15,6 +16,9 @@ Page({
   onLoad: function (options) {
     this.data.keyword = options.keyword;    
     this.fetchProduct();
+  },
+  onReady: function () {
+    handlerLogin.ifAuthen();
   },
   //填充页面
   fetchProduct:function(){
